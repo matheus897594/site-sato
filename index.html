@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sato – Restaurante Japonês | Santos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #cc0000;
+            --red-bright: #ff1a1a;
+            --gold: #c9a84c;
+            --black: #050505;
+            --white: #f5f5f5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ── LOGO FIXA DE FUNDO ── */
+        .bg-logo {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.82)),
+                url('img/logo.png') center/contain no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            background: rgba(180, 0, 0, 0.95) !important;
+            backdrop-filter: blur(6px);
+            border-bottom: 2px solid var(--gold);
+            padding: 0.4rem 0;
+        }
+        .navbar-brand {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.4rem !important;
+            color: var(--white) !important;
+            letter-spacing: 2px;
+        }
+        .nav-link {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem !important;
+            letter-spacing: 2px;
+            color: var(--white) !important;
+            text-transform: uppercase;
+            padding: 0.5rem 1.2rem !important;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--gold) !important; }
+        .navbar-toggler { border-color: var(--gold); }
+        .navbar-toggler-icon { filter: invert(1); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        .hero-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            color: var(--white);
+            text-shadow: 0 0 40px rgba(204,0,0,0.6);
+            animation: fadeUp 1.2s ease-out both;
+        }
+        .hero-sub {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin: 0.6rem 0 1.4rem;
+            text-transform: uppercase;
+            animation: fadeUp 1.2s 0.25s ease-out both;
+        }
+        .hero-desc {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            line-height: 1.6;
+            animation: fadeUp 1.2s 0.5s ease-out both;
+        }
+        .hero-divider {
+            width: 120px; height: 2px;
+            background: linear-gradient(to right, transparent, var(--red), transparent);
+            margin: 2rem auto;
+            animation: fadeUp 1.2s 0.7s ease-out both;
+        }
+        .btn-hero {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.75rem 2.5rem;
+            border-radius: 0;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeUp 1.2s 0.9s ease-out both;
+        }
+        .btn-hero:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* ── DESTAQUES ── */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+        .section-title-cursive {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--red-bright);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: rgba(10,10,10,0.85);
+            border: 1px solid #2a2a2a;
+            border-radius: 0;
+            overflow: hidden;
+            transition: transform 0.35s, box-shadow 0.35s;
+            cursor: pointer;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(204,0,0,0.35);
+            border-color: var(--red);
+        }
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+            filter: brightness(0.85);
+            transition: filter 0.35s, transform 0.35s;
+        }
+        .card:hover .card-img-top {
+            filter: brightness(0.6);
+            transform: scale(1.05);
+        }
+        .card-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .card:hover .card-overlay { opacity: 1; }
+        .card-overlay a {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--red);
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: background 0.3s;
+        }
+        .card-overlay a:hover { background: var(--red-bright); }
+        .card-body { padding: 1.2rem; text-align: center; }
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: var(--white);
+            margin-bottom: 0.3rem;
+        }
+        .card-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 0.5rem;
+        }
+        .card-price {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+
+        /* ── FEATURES ── */
+        .feature-item { text-align: center; padding: 2rem 1rem; }
+        .feature-icon { font-size: 2.5rem; color: var(--red-bright); margin-bottom: 0.8rem; }
+        .feature-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .feature-text { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: rgba(10,0,0,0.9);
+            border-top: 1px solid #2a2a2a;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        footer p {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ── WHATSAPP FLUTUANTE ── */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            z-index: 999;
+            width: 58px; height: 58px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.12);
+            box-shadow: 0 6px 28px rgba(37,211,102,0.65);
+        }
+        .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
+
+        /* ── ANIMAÇÕES ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-pad { padding: 5rem 0; }
+
+        .red-line {
+            width: 60px; height: 2px;
+            background: var(--red);
+            margin: 0 auto 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-logo"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Sato</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link active" href="index.html">Início</a>
+                    <a class="nav-link" href="cardapio.html">Cardápio</a>
+                    <a class="nav-link" href="endereco.html">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <p class="hero-sub">Restaurante Japonês · Santos · SP</p>
+        <h1 class="hero-title">Bem-vindo ao Sato</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-desc">Um espaço aconchegante para crianças e adultos, com espaço kids exclusivo, no coração de Santos.</p>
+        <div class="mt-4">
+            <a href="cardapio.html" class="btn-hero">Ver Cardápio</a>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section-pad" style="background: rgba(10,0,0,0.6);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">🍣</div>
+                        <p class="feature-title">Culinária Autêntica</p>
+                        <p class="feature-text">Pratos preparados com ingredientes frescos e técnicas tradicionais japonesas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                        <p class="feature-title">Espaço Kids</p>
+                        <p class="feature-text">Ambiente pensado para toda a família, com área dedicada às crianças.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌸</div>
+                        <p class="feature-title">Ambiente Chique</p>
+                        <p class="feature-text">Decoração elegante e aconchegante para momentos especiais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRATOS EM DESTAQUE -->
+    <section class="section-pad">
+        <div class="container">
+            <p class="section-title">Nossos</p>
+            <p class="section-title-cursive">Destaques</p>
+            <div class="red-line"></div>
+
+            <div class="row g-4">
+                <!-- Temaki -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="img temaki.jpg" class="card-img-top" alt="Temaki Salmão">
+                        <div class="card-overlay">
+                            <a href="https://wa.me/5513991596305?text=Olá! Tenho interesse no Temaki Salmão. Pode me passar mais informações?" target="_blank">🛒 Pedir Agora</a>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">Temaki Salmão</p>
+                            <p class="card-text">Cone crocante recheado com salmão fresco, cream cheese e cebolinha.</p>
+                            <p class="card-price">R$ 35,00</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hot Roll -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="img/hot-roll.jpg" class="card-img-top" alt="Hot Roll">
+                        <div class="card-overlay">
+                            <a href="https://wa.me/5513991596305?text=Olá! Quero saber mais sobre o Hot Roll do Sato!" target="_blank">🛒 Pedir Agora</a>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">Hot Roll Especial</p>
+                            <p class="card-text">Uramaki empanado e frito, com camarão, kani e maionese especial.</p>
+                            <p class="card-price">R$ 42,00</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Barca -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="img/barca.jpg" class="card-img-top" alt="Barca Sato">
+                        <div class="card-overlay">
+                            <a href="https://wa.me/5513991596305?text=Olá! Gostaria de saber sobre a Barca Sato para minha mesa!" target="_blank">🛒 Pedir Agora</a>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">Barca Sato</p>
+                            <p class="card-text">Combinado generoso com 40 peças variadas, perfeito para compartilhar.</p>
+                            <p class="card-price">R$ 189,00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="cardapio.html" class="btn-hero">Ver Cardápio Completo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Sato Restaurante Japonês · Santos / SP · Todos os direitos reservados</p>
+    </footer>
+
+    <!-- WHATSAPP FLUTUANTE -->
+    <a class="whatsapp-float" href="https://wa.me/5513991596305?text=Olá! Gostaria de saber mais sobre o Restaurante Sato." target="_blank" title="Fale conosco no WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0C7.164 0 0 7.164 0 16c0 2.82.737 5.466 2.027 7.762L0 32l8.474-2.002A15.934 15.934 0 0016 32c8.836 0 16-7.164 16-16S24.836 0 16 0zm0 29.333a13.27 13.27 0 01-6.768-1.853l-.484-.287-5.03 1.188 1.23-4.896-.316-.503A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.273-9.946c-.398-.2-2.356-1.163-2.72-1.295-.365-.133-.63-.2-.896.2-.265.398-1.028 1.295-1.26 1.562-.232.265-.464.298-.862.1-.398-.2-1.68-.619-3.2-1.976-1.183-1.055-1.982-2.358-2.214-2.756-.232-.398-.025-.613.174-.811.178-.178.398-.464.597-.696.2-.232.265-.398.398-.664.133-.265.066-.497-.033-.696-.1-.2-.896-2.16-1.228-2.958-.323-.776-.65-.671-.896-.683l-.763-.013c-.265 0-.696.1-.1061.497-.365.398-1.394 1.363-1.394 3.323 0 1.96 1.428 3.854 1.627 4.12.2.265 2.81 4.29 6.81 6.018.952.411 1.695.657 2.275.841.955.304 1.826.261 2.514.158.767-.114 2.356-.963 2.688-1.893.332-.93.332-1.727.232-1.893-.1-.166-.365-.265-.763-.464z"/>
+        </svg>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
